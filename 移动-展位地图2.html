@@ -28,6 +28,7 @@
 		.select_item{
 			display:block;
 			position: absolute;
+			border:1px solid red;
 		}
 		.start_on{
 			border : 1px solid #ff6353;
@@ -42,6 +43,7 @@
 			line-height: 40px;
 			width:100%;
 			position:relative;
+			padding-bottom: 12px;
 		}
 		#search_bar .pos_point{
 			display:block;
@@ -156,31 +158,18 @@
 			type : 'start',
 			searchVal : '',
 			position : [
-				{'class':'yanpu','title':'上海眼谱网络科技有限公司','pos':[15.4,2.3,2,1.5]},
-				{'class':'shiku','title':'上海视库有限公司','pos':[26,2.3,2,1.5]},
-				{'class':'wangke','title':'望克眼镜网路有限公司','pos':[46,2.3,2,1.5]},
-				{'class':'zhiyu','title':'智宇眼镜公司','pos':[65,2.3,2,1.5]},
-				{'class':'jingyi','title':'精益眼镜店','pos':[65.2,7,2,1.5]},
-				{'class':'yishilu','title':'法国依视路眼镜店','pos':[46,7,2,1.5]},
-				{'class':'baolong','title':'暴龙眼镜店铺','pos':[26.8,7,2,1.5]},
-				{'class':'yinglun','title':'上海英伦眼镜店','pos':[15.2,7,2,1.5]},
-				{'class':'shalong','title':'沙龙眼镜店','pos':[15.2,11.8,2,1.5]},
-				{'class':'mengsha','title':'梦莎太阳镜','pos':[26.8,11.8,2,1.5]},
-				{'class':'legou','title':'乐购商城','pos':[46,12.8,2,1.5]},
-				{'class':'woerma','title':'沃尔玛商城','pos':[63.2,12.8,2,1.5]},
-
-				{'class':'gainian','title':'概念眼镜展','pos':[66.8,18.7,2,1.5]},
-				{'class':'guangming','title':'光明眼镜','pos':[66.5,59.2,2,1.5]},
-				{'class':'baoshida','title':'上海宝视达有限公司','pos':[66.4,79.2,2,1.5]},
+				{'class':'dfgj','title':'东方国际','pos':[16,2.6,11.6,3.3]},
+				{'class':'fal','title':'FOURPLUS ADVERTISING LLC','pos':[34.5,4.2,4,1.6]},
+				{'class':'zym','title':'北京左右目光学科技有限公司','pos':[38.5,2.6,7.5,3.2]},
 			],
 			searchExt :[	//这里用于扩充搜索内容，如果需要搜索座位，需要在这里一一设置对应关系
 				{
-					'key':'上海观语科技有限公司',	//多对一搜索
-					'name':'yanpu',
+					'key':'2A32',	//多对一搜索
+					'name':'fal',
 				},
 				{
-					'key':'1V68',					//搜索座位
-					'name':'yanpu',
+					'key':'2A30',					//搜索座位
+					'name':'zym',
 				}
 			],
 			render : function(){
@@ -277,7 +266,7 @@
 		<span class="point end_point">终点</span>
 	</div>
 	<div id="zoom">
-		<img src="UploadFile/11.jpg" alt="" class="seat_map">
+		<img src="UploadFile/22.jpg" alt="" class="seat_map">
 	</div>
 </map> 
 </body>
