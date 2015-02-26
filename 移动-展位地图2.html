@@ -147,13 +147,15 @@
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/m_all.js"></script>
     <script>
-
+    		//为方便快速操作，class可按作为命名
 		//meet.searchExt用于扩充搜索内容
 		//meet.position里的pos分别指每个公司展位的left,top,width,height，这里需要手工设置
 		//使用click事件操作
 		//其余场馆和本场馆业务逻辑一致，只需要修改meet.position，meet.searchExt属性配置
 		//每个参展公司的信息都需要录入meet.position属性中,meet.searchExt对应搜索时的多对1情景
 		//所有逻辑均在js端完成不需PHP做任何处理
+		//搜索展位时如果一个展位对应多个公司，那么搜索结果显示展位号，不显示具体公司
+		//搜索公司品牌直接在searchExt中设置
 		var meet={
 			type : 'start',
 			searchVal : '',
@@ -168,20 +170,62 @@
 				{'class':'bjz','title':'上海视邦光学眼镜有限公司','pos':[72,2.6,15.2,14]},
 				{'class':'bjz','title':'罗敦司得股份有限公司','pos':[72,2.6,15.2,14]},
 			],
-			searchExt :[	//这里用于扩充搜索内容，如果需要搜索座位，需要在这里一一设置对应关系,
-				{
-					'key':'2A02',
-					'name':'bjz'
-				},
+			searchExt :[	//这里用于扩充搜索内容，如果需要搜索座位，需要在这里一一设置对应关系,name即为position中的class
+				{'key':'2A02','name':'bjz'},
+				{'key':'2A02','name':'ldsd'},
+				{'key':'2A03','name':'jisco'},
+				{'key':'2A04','name':'xgmy'},
+				{'key':'2A06','name':'afgx'},
+				{'key':'2A08','name':'fjyj'},
+				{'key':'2A09','name':'ws'},
+				{'key':'2A10','name':'jdsm'},
+				{'key':'2A12','name':'dlzd'},
+				{'key':'韩国新仑光学','name':'dlzd'},
+				{'key':'2A14','name':'myyj'},
+				{'key':'宝德光学有限公司','name':'myyj'},
+				{'key':'嘉晏光学股份有限公司','name':'myyj'},
+				{'key':'2A16','name':'izmo'},
+				{'key':'2A22','name':'tycyj'},
+				{'key':'SANG HA FACTORY CO., LTD','name':'tycyj'},
+				{'key':'2A26','name':'lgsy'},
+				{'key':'力高实业公司','name':'lgsy'},
+				{'key':'NEXUS INC.','name':'lgsy'},
+				{'key':"L'AMY GROUP",'name':'lgsy'},
+				{'key':'2D08','name':'lg'},
+				{'key':'2A26','name':'lgsy'},
+				{'key':'2A28','name':'psyj'},
+				{'key':'2A30','name':'zymg'},
+				{'key':'2A32','name':'2A32'},
+				{'key':'FOURPLUS ADVERTISING PTE LTD.','name':'2A32'},
+				{'key':'FOURPLUS ADVERTISING PVT LTD.','name':'2A32'},
+				{'key':'2A40','name':'2A40'},
+				{'key':'2A50','name':'2A50'},
+				{'key':'2A52','name':'2A52'},
+				{'key':'TOTAL IMMERSION SA','name':'2A52'},
+				{'key':'2A54','name':'2A54'},
+				{'key':'2B02','name':'2B02'},
+				{'key':'AOYAMA OPTICAL CO ., LTD.','name':'2B02'},
+				{'key':'2B04','name':'2B04'},
+				{'key':'P06','name':'2B04'},
+				{'key':'厦门宝瞻商贸有限公司','name':'2B04'},
+				{'key':'2B06','name':'2B06'},
+				{'key':'2B08','name':'2B06'},
+				{'key':'2B10','name':'2B10'},
+				{'key':'AM EYEWEAR 爱迈光学, KILSGAARD, L.G.R., LOTHO','name':'2B10'},
+				{'key':'KILSGAARD,L.G.R.,LOTHO','name':'2B10'},
+				{'key':'2B12','name':'2B12'},
+				{'key':'日本夏蒙集团','name':'2B12'},
+				{'key':'CHARMANT 夏蒙','name':'2B12'},
+				{'key':'2B30','name':'2B30'},
+				{'key':'DJUAL 杜加尔, ROYAL REGALITY 帝皇','name':'2B30'},
 
-				{
-					'key':'2A32',	//多对一搜索
-					'name':'fal',
-				},
-				{
-					'key':'2A30',					//搜索座位
-					'name':'zym',
-				}
+
+
+
+
+				{'key':'2D02','name':'ldsd'},
+				{'key':'2A32','name':'fal',},
+				{'key':'2A30','name':'zym',}
 			],
 			render : function(){
 				jq(this.position).each(function(){
@@ -200,7 +244,7 @@
 				var flag = 0;
 
 				jq(this.position).each(function(){
-					if(this['title'].indexOf(meet.searchVal) != -1){						
+					if(this['title'].toLowerCase().indexOf(meet.searchVal.toLowerCase()) != -1){						
 						if(meet.type == 'start'){
 							var start=jq('.'+this['class']);
 							start.removeClass('start_end').addClass('start_on').html('<div class="pos_icon"><i></i><em>'+this['title']+'</em></div>');
