@@ -162,7 +162,12 @@
 				{'class':'fal','title':'FOURPLUS ADVERTISING LLC','pos':[34.5,4.2,4,1.6]},
 				{'class':'zym','title':'北京左右目光学科技有限公司','pos':[38.5,2.6,7.5,3.2]},
 			],
-			searchExt :[	//这里用于扩充搜索内容，如果需要搜索座位，需要在这里一一设置对应关系
+			searchExt :[	//这里用于扩充搜索内容，如果需要搜索座位，需要在这里一一设置对应关系,
+				{
+					'key':'2A02',
+					'name':'bjz'
+				},
+
 				{
 					'key':'2A32',	//多对一搜索
 					'name':'fal',
@@ -192,10 +197,10 @@
 					if(this['title'].indexOf(meet.searchVal) != -1){						
 						if(meet.type == 'start'){
 							var start=jq('.'+this['class']);
-							start.removeClass('start_end').addClass('start_on').html('<div class="pos_icon"><i></i><em>'+start.attr('title')+'</em></div>');
+							start.removeClass('start_end').addClass('start_on').html('<div class="pos_icon"><i></i><em>'+this['title']+'</em></div>');
 						}else if(meet.type == 'end'){
 							var end=jq('.'+this['class']);
-							end.removeClass('start_on').addClass('start_end').html('<div class="pos_icon"><i></i><em>'+end.attr('title')+'</em></div>');
+							end.removeClass('start_on').addClass('start_end').html('<div class="pos_icon"><i></i><em>'+this['title']+'</em></div>');
 						}
 						flag++;
 						return;
@@ -210,10 +215,10 @@
 					if(this['key'].toLowerCase().indexOf(meet.searchVal.toLowerCase()) != -1){						
 						if(meet.type == 'start'){
 							var start=jq('.'+this['name']);
-							start.removeClass('start_end').addClass('start_on').html('<div class="pos_icon"><i></i><em>'+start.attr('title')+'</em></div>');
+							start.removeClass('start_end').addClass('start_on').html('<div class="pos_icon"><i></i><em>'+this['key']+'</em></div>');
 						}else if(meet.type == 'end'){
 							var end=jq('.'+this['name']);
-							end.removeClass('start_on').addClass('start_end').html('<div class="pos_icon"><i></i><em>'+end.attr('title')+'</em></div>');
+							end.removeClass('start_on').addClass('start_end').html('<div class="pos_icon"><i></i><em>'+this['key']+'</em></div>');
 						}
 						flag++;	
 					}
