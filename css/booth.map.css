@@ -135,6 +135,7 @@ input{outline:none;}
 	position: absolute;
 	top:30%;
 	right: 2px;
+	z-index:9999;
 }
 .booth_map .venues a{
 	display: block;
