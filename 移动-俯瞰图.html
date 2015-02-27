@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta content="width=device-width, initial-scale=1.0, user-scalable=1" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="email=no" name="format-detection" />
+    <!--<meta content="telephone=no" name="format-detection">忽略将数字变电话号码-->
+    <meta name="MobileOptimized" content="240"/>
+    <title>眼谱网</title>
+    <link rel="stylesheet" type="text/css" href="css/public.css">
+    <link rel="stylesheet" type="text/css" href="css/booth.map.css">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/m_all.js"></script>
+    <script>
+    	//为方便快速操作，class可按作为命名
+		//meet.searchExt用于扩充搜索内容
+		//meet.position里的pos分别指每个公司展位的left,top,width,height，这里需要手工设置
+		//使用click事件操作
+		//其余场馆和本场馆业务逻辑一致，只需要修改meet.position，meet.searchExt属性配置
+		//每个参展公司的信息都需要录入meet.position属性中,meet.searchExt对应搜索时的多对1情景
+		//所有逻辑均在js端完成不需PHP做任何处理
+		//搜索展位时如果一个展位对应多个公司，那么搜索结果显示展位号，不显示具体公司
+		//搜索公司品牌直接在searchExt中设置
+		var meet={
+			type : 'start',
+			searchVal : '',
+			position : [
+				{'class':'dfgj','title':'东方国际','pos':[16,2.6,11.6,3.3]},
+				
+			],
+			searchExt :[	//这里用于扩充搜索内容，如果需要搜索座位，需要在这里一一设置对应关系,name即为position中的class
+				{'key':'2A02','name':'bjz'},
+			],
+			render : function(){
+				jq(this.position).each(function(){
+					jq('#zoom').append('<span class="select_item '+this['class']+'" title="'+this['title']+'" style="left:'+this['pos'][0]+'%;top:'+this['pos'][1]+'%;width:'+this['pos'][2]+'%;height:'+this['pos'][3]+'%;"></span>')
+				})
+				return this;
+			},
+
+			searchHandle : function(){
+				if(meet.type == 'start'){
+					jq('.start_on').empty().removeClass('start_on');
+				}else{
+					jq('.start_end').empty().removeClass('start_end');
+				}
+
+				var flag = 0;
+
+				jq(this.position).each(function(){
+					if(this['title'].toLowerCase().indexOf(meet.searchVal.toLowerCase()) != -1){						
+						if(meet.type == 'start'){
+							var start=jq('.'+this['class']);
+							start.removeClass('start_end').addClass('start_on').html('<div class="pos_icon"><i></i><em>'+this['title']+'</em></div>');
+						}else if(meet.type == 'end'){
+							var end=jq('.'+this['class']);
+							end.removeClass('start_on').addClass('start_end').html('<div class="pos_icon"><i></i><em>'+this['title']+'</em></div>');
+						}
+						flag++;
+						return;
+					}
+				})
+
+				if(flag){
+					return;
+				}
+
+				jq(this.searchExt).each(function(){	
+					if(this['key'].toLowerCase().indexOf(meet.searchVal.toLowerCase()) != -1){						
+						if(meet.type == 'start'){
+							var start=jq('.'+this['name']);
+							start.removeClass('start_end').addClass('start_on').html('<div class="pos_icon"><i></i><em>'+this['key']+'</em></div>');
+						}else if(meet.type == 'end'){
+							var end=jq('.'+this['name']);
+							end.removeClass('start_on').addClass('start_end').html('<div class="pos_icon"><i></i><em>'+this['key']+'</em></div>');
+						}
+						flag++;	
+					}
+				})
+
+				if(!flag){
+					alert('没有搜索到相关信息，请更换搜索内容,或者尝试去其他场馆搜索')
+				}
+
+			},
+			events : function(){
+				jq('.point').on('click', function(e) {
+					if(! (meet.searchVal = jq.trim(jq(this).siblings('.pos_point').val()))){
+						alert('请选择公司');
+						return;
+					}
+					if(jq(this).hasClass('start_point')){
+						meet.type='start';
+					}else{
+						meet.type='end';
+					}
+					meet.searchHandle()
+				});
+			},
+			init : function(){
+				this.render().events()
+			}
+		}
+
+
+		jq(function(){
+			//开始
+			meet.init();
+		})
+    </script>
+</head>
+<body>
+	<!--[[头部-->
+	<header class="P-Header">
+	    <div class="H-Box">
+	        <div class="H-Back micon" id="D_BackBtn"><a href="#上一页的链接"></a></div>
+	        <div class="H-title">2015上海眼镜展展位向导</div>
+	        <div class="H-AppBtn"></div>
+	    </div>
+	</header>
+	<!--头部]]-->
+	<div class="booth_map" id="eyepp_map">
+		<div class="aerial_view"><img src="UploadFile/all_pic.jpg" alt=""></div>
+		<div class="footer"><p>Power By 眼谱</p></div>
+		<div id="venues" class="venues">
+			<a href="移动-展位地图1.html" target="_blank">1号馆</a>
+			<a href="移动-展位地图2.html" target="_blank">2号馆</a>
+			<a href="移动-展位地图3.html" target="_blank">3号馆</a>
+			<a href="移动-展位地图4.html" target="_blank">4号馆</a>
+			<a href="移动-俯瞰图.html" target="_blank" class="on">俯瞰图</a>
+		</div>
+	</div>
+</map> 
+</body>
+</html>
