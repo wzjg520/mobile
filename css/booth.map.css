@@ -2,6 +2,7 @@ input{outline:none;}
 #zoom{
 	position: relative;
 	width:100%;
+	overflow-x:auto;
 }
 .seat_map{
 	width:100%;
