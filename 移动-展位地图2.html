@@ -53,7 +53,7 @@
 				{'class':'2A54','title':'香港中华眼镜制造厂商会有限公司','pos':[32.7,15.7,3.9,1.7]},
 				{'class':'2B02','title':'上海青嘉眼镜商贸有限公司','pos':[72,19.7,15.2,3.2]},
 				{'class':'2B04','title':'加拿大宝姿1961集团','pos':[72,24.7,15.2,4.3]},
-				{'class':'P06','title':'厦门宝瞻商贸有限公司','pos':[10,85.6,15.3,11.1]},
+				{'class':'P06','title':'加拿大宝姿1961集团','pos':[10,85.6,15.3,11.1]},
 				{'class':'2B06','title':'北京福井堂眼镜有限公司','pos':[52,19.7,17.1,3.1]},
 				{'class':'2B08','title':'迈卡蒂','pos':[62.2,24.7,6.8,3.1]},
 				{'class':'2B10','title':'AM EYEWEAR PTY LTD.','pos':[]},//地图上面没有2B10
@@ -541,7 +541,7 @@
 				var flag = 0;
 
 				jq(this.position).each(function(){
-					if(this['title'].toLowerCase().indexOf(meet.searchVal.toLowerCase()) != -1){						
+					if(this['title'] && this['title'].toLowerCase().indexOf(meet.searchVal.toLowerCase()) != -1){						
 						if(meet.type == 'start'){
 							var start=jq('.'+this['class']);
 							start.removeClass('start_end').addClass('start_on').html('<div class="pos_icon"><i></i><em>'+this['title']+'</em></div>');
@@ -559,7 +559,7 @@
 				}
 
 				jq(this.searchExt).each(function(){	
-					if(this['key'].toLowerCase().indexOf(meet.searchVal.toLowerCase()) != -1){						
+					if(this['key'] && this['key'].toLowerCase().indexOf(meet.searchVal.toLowerCase()) != -1){						
 						if(meet.type == 'start'){
 							var start=jq('.'+this['name']);
 							start.removeClass('start_end').addClass('start_on').html('<div class="pos_icon"><i></i><em>'+this['key']+'</em></div>');
