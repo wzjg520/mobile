@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="css/booth.map.css">
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/m_all.js"></script>
+    <script type="text/javascript" src="js/mapconfig.js"></script>
     <script>
     	//为方便快速操作，class可按作为命名
 		//meet.searchExt用于扩充搜索内容
@@ -27,13 +28,9 @@
 		var meet={
 			type : 'start',
 			searchVal : '',
-			position : [
-				{'class':'dfgj','title':'东方国际','pos':[16,2.6,11.6,3.3]},
-				
-			],
-			searchExt :[	//这里用于扩充搜索内容，如果需要搜索座位，需要在这里一一设置对应关系,name即为position中的class
-				{'key':'2A02','name':'bjz'},
-			],
+			position : position[3],
+			//这里用于扩充搜索内容，如果需要搜索座位，需要在这里一一设置对应关系,name即为position中的class
+			searchExt :searchExt[3],
 			render : function(){
 				jq(this.position).each(function(){
 					jq('#zoom').append('<span class="select_item '+this['class']+'" title="'+this['title']+'" style="left:'+this['pos'][0]+'%;top:'+this['pos'][1]+'%;width:'+this['pos'][2]+'%;height:'+this['pos'][3]+'%;"></span>')
