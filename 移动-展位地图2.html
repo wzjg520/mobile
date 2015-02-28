@@ -589,6 +589,21 @@
 					}
 					meet.searchHandle()
 				});
+
+				// if(location.href ){
+				// 	jq('.point').on('click', function(e) {
+				// 		if(! (meet.searchVal = jq.trim(jq(this).siblings('.pos_point').val()))){
+				// 			alert('请选择公司');
+				// 			return;
+				// 		}
+				// 		if(jq(this).hasClass('start_point')){
+				// 			meet.type='start';
+				// 		}else{
+				// 			meet.type='end';
+				// 		}
+				// 		meet.searchHandle()
+				// 	}).trigger('click');
+				// }
 			},
 			init : function(){
 				this.render().events()
@@ -599,7 +614,27 @@
 		jq(function(){
 			//开始
 			meet.init();
+			console.log(getUrlRequest('get'))
 		})
+
+function getUrlRequest(param){
+	var url = location.search; //获取url中"?"符后的字串
+	var theRequest = new Object();
+	if (url.indexOf("?") != -1) {
+		var str = url.substr(1);
+		if (str.indexOf("&") != -1) {
+			strs = str.split("&");
+			for (var i = 0; i < strs.length; i++) {
+				theRequest[strs[i].split("=")[0]] = decodeURI(strs[i].split("=")[1]);
+			}
+		} else {
+			var key = str.substring(0,str.indexOf("="));
+			var value = str.substr(str.indexOf("=")+1);
+			theRequest[key] = decodeURI(value);
+		}
+	}
+	return theRequest[param];
+}
     </script>
 </head>
 <body>
