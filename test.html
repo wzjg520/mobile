@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>本地存储</title>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script>
+	$(function(){
+		if(typeof(Storage)!=="undefined"){
+			
+			// localStorage.lastname="Smith";
+			// $('#result').html("Last name: "
+			// + localStorage.lastname); 
+
+
+			if (localStorage.clickcount){
+			  localStorage.clickcount=Number(localStorage.clickcount)+1;
+			}
+			else{
+			  localStorage.clickcount=1;
+			}
+			$('#result').html("You have clicked the button " + localStorage.clickcount + " time(s).");
+		}else
+		  {
+		  // Sorry! No web storage support..
+		  alert('你的浏览器不支持本地存储');
+		}
+	})
+	</script>
+</head>
+<body>
+	<div id="result"></div>
+</body>
+</html>

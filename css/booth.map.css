@@ -11,6 +11,7 @@ input{outline:none;}
 .select_item{
 	display:block;
 	position: absolute;
+	border:1px solid red;
 }
 .start_on{
 	border : 1px solid #ff6353;
