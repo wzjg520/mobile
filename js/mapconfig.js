@@ -166,6 +166,8 @@ var position=[
 	]
 ];
 
+
+
 var searchExt=[
 	[
 		{'key':'1A12','name':'1A12'},
@@ -517,3 +519,5 @@ var searchExt=[
 		{'key':'4B12','name':'4B12'},
 	]
 ];
+localStorage['position'] = JSON.stringify(position);
+localStorage['searchExt'] =JSON.stringify(searchExt);

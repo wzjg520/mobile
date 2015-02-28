@@ -25,12 +25,17 @@
 		//所有逻辑均在js端完成不需PHP做任何处理
 		//搜索展位时如果一个展位对应多个公司，那么搜索结果显示展位号，不显示具体公司
 		//搜索公司品牌直接在searchExt中设置
+		
+
+
+	jq(function(){
+		var num = 1;
 		var meet={
 			type : 'start',
 			searchVal : '',
-			position :position[1],
+			position :JSON.parse(localStorage['position'])[num],
 			//这里用于扩充搜索内容，如果需要搜索座位，需要在这里一一设置对应关系,name即为position中的class
-			searchExt :searchExt[1],
+			searchExt :JSON.parse(localStorage['searchExt'])[num],
 			render : function(){
 				jq(this.position).each(function(){
 					jq('#zoom').append('<span class="select_item '+this['class']+'" title="'+this['title']+'" style="left:'+this['pos'][0]+'%;top:'+this['pos'][1]+'%;width:'+this['pos'][2]+'%;height:'+this['pos'][3]+'%;"></span>')
@@ -74,8 +79,48 @@
 							var end=jq('.'+this['name']);
 							end.removeClass('start_on').addClass('start_end').html('<div class="pos_icon"><i></i><em>'+this['key']+'</em></div>');
 						}
-						flag++;	
+						flag++;
+						return;
 					}
+				})
+
+				if(flag){
+					return;
+				}
+
+				jq(JSON.parse(localStorage['position'])).each(function(i){
+					if(i == num)return;
+					jq(JSON.parse(localStorage['position'])[i]).each(function(j){
+						if(this['title'] && this['title'].toLowerCase().indexOf(meet.searchVal.toLowerCase()) != -1){						
+							if(meet.type == 'start'){
+								location.href =i+'?searchVal='+meet.searchVal+'&type=start';
+							}else if(meet.type == 'end'){
+								location.href =i+'?searchVal='+meet.searchVal+'&type=end';
+							}
+							flag++;
+							return;
+						}
+					})
+				})
+
+				if(flag){
+					return;
+				}
+
+				jq(JSON.parse(localStorage['searchExt'])).each(function(i){
+					if(i == num)return;
+
+					jq(JSON.parse(localStorage['searchExt'])[i]).each(function(j){
+						if(this['key'] && this['key'].toLowerCase().indexOf(meet.searchVal.toLowerCase()) != -1){						
+							if(meet.type == 'start'){
+								location.href =i+'?searchVal='+meet.searchVal+'&type=start';
+							}else if(meet.type == 'end'){
+								location.href =i+'?searchVal='+meet.searchVal+'&type=start';
+							}
+							flag++;
+							return;
+						}
+					})
 				})
 
 				if(!flag){
@@ -85,45 +130,44 @@
 			},
 			events : function(){
 				jq('.point').on('click', function(e) {
-					if(! (meet.searchVal = jq.trim(jq(this).siblings('.pos_point').val()))){
+
+					
+					if(!getUrlRequest('searchVal') &&! (meet.searchVal = jq.trim(jq(this).siblings('.pos_point').val()))){
 						alert('请选择公司');
 						return;
+					}else if(jq.trim(jq(this).siblings('.pos_point').val())){
+						meet.searchVal = jq.trim(jq(this).siblings('.pos_point').val())
+					}else{
+						if(getUrlRequest('searchVal') ){
+							meet.searchVal = getUrlRequest('searchVal');
+							meet.type=getUrlRequest('type');
+						}
 					}
+
 					if(jq(this).hasClass('start_point')){
 						meet.type='start';
 					}else{
 						meet.type='end';
 					}
+
+					
 					meet.searchHandle()
 				});
 
-				// if(location.href ){
-				// 	jq('.point').on('click', function(e) {
-				// 		if(! (meet.searchVal = jq.trim(jq(this).siblings('.pos_point').val()))){
-				// 			alert('请选择公司');
-				// 			return;
-				// 		}
-				// 		if(jq(this).hasClass('start_point')){
-				// 			meet.type='start';
-				// 		}else{
-				// 			meet.type='end';
-				// 		}
-				// 		meet.searchHandle()
-				// 	}).trigger('click');
-				// }
+				if(getUrlRequest('searchVal')){
+					meet.searchVal = getUrlRequest('searchVal');
+					jq('.point').trigger('click');
+				}
 			},
 			init : function(){
 				this.render().events()
 			}
 		}
-
-
-		jq(function(){
 			//开始
 			meet.init();
 			console.log(getUrlRequest('get'))
 		})
-
+//获得url参数
 function getUrlRequest(param){
 	var url = location.search; //获取url中"?"符后的字串
 	var theRequest = new Object();
