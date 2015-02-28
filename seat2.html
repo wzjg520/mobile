@@ -93,9 +93,9 @@
 					jq(JSON.parse(localStorage['position'])[i]).each(function(j){
 						if(this['title'] && this['title'].toLowerCase().indexOf(meet.searchVal.toLowerCase()) != -1){						
 							if(meet.type == 'start'){
-								location.href =i+'?searchVal='+meet.searchVal+'&type=start';
+								location.href =location.pathname.replace(2,i+1)+'?searchVal='+meet.searchVal+'&type=start';
 							}else if(meet.type == 'end'){
-								location.href =i+'?searchVal='+meet.searchVal+'&type=end';
+								location.href =location.pathname.replace(2,i+1)+'?searchVal='+meet.searchVal+'&type=end';
 							}
 							flag++;
 							return;
@@ -113,9 +113,9 @@
 					jq(JSON.parse(localStorage['searchExt'])[i]).each(function(j){
 						if(this['key'] && this['key'].toLowerCase().indexOf(meet.searchVal.toLowerCase()) != -1){						
 							if(meet.type == 'start'){
-								location.href =i+'?searchVal='+meet.searchVal+'&type=start';
+								location.href =location.pathname.replace(2,i+1)+'?searchVal='+meet.searchVal+'&type=start';
 							}else if(meet.type == 'end'){
-								location.href =i+'?searchVal='+meet.searchVal+'&type=start';
+								location.href =location.pathname.replace(2,i+1)+'?searchVal='+meet.searchVal+'&type=start';
 							}
 							flag++;
 							return;
@@ -165,7 +165,6 @@
 		}
 			//开始
 			meet.init();
-			console.log(getUrlRequest('get'))
 		})
 //获得url参数
 function getUrlRequest(param){
@@ -209,10 +208,10 @@ function getUrlRequest(param){
 		</div>
 		<div class="footer"><p>Power By 眼谱</p></div>
 		<div id="venues" class="venues">
-			<a href="移动-展位地图1.html" target="_blank">1号馆</a>
-			<a href="移动-展位地图2.html" target="_blank" class="on">2号馆</a>
-			<a href="移动-展位地图3.html" target="_blank">3号馆</a>
-			<a href="移动-展位地图4.html" target="_blank">4号馆</a>
+			<a href="seat1.html" target="_blank">1号馆</a>
+			<a href="seat2.html" target="_blank" class="on">2号馆</a>
+			<a href="seat3.html" target="_blank">3号馆</a>
+			<a href="seat4.html" target="_blank">4号馆</a>
 			<a href="移动-俯瞰图.html" target="_blank">俯瞰图</a>
 		</div>
 	</div>
